@@ -4,6 +4,9 @@ English Dictionary
 
 <img width="1141" height="758" alt="image" src="https://github.com/user-attachments/assets/7a2a4d6f-98ee-4b40-90a7-5920389594e5" />
 
+<img width="1139" height="872" alt="image" src="https://github.com/user-attachments/assets/e297765e-7a34-423a-9a45-1573d8adfa0a" />
+
+
 <img width="1095" height="815" alt="image" src="https://github.com/user-attachments/assets/eca955f2-6d45-4cdc-a0a6-ec7637e3c95d" />
 
 
