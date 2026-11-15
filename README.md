@@ -1,6 +1,6 @@
 # Wordsmith Dictionary
 
-English Dictionary
+Demo: https://dictyy.vercel.app/
 
 <img width="1141" height="758" alt="image" src="https://github.com/user-attachments/assets/7a2a4d6f-98ee-4b40-90a7-5920389594e5" />
 
