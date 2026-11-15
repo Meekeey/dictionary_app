@@ -1,0 +1,15 @@
+{
+  "name": "Wordsmith Dictionary",
+  "short_name": "Wordsmith",
+  "description": "A simple English dictionary for learners. Works offline.",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#b57a45",
+  "theme_color": "#2f9c94",
+  "icons": [
+    { "src": "icons/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "icons/icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}

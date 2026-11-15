@@ -1,0 +1,644 @@
+/* style.css
+   Look: a pixel-art "crafting menu". Wood frame, parchment panels,
+   teal title tabs, inventory slots and a chunky green button. */
+
+/* ---------- Fonts (saved in the app, so they work offline) ---------- */
+@font-face { font-family: "Silkscreen"; font-weight: 400; font-display: swap; src: url("fonts/silkscreen-latin-400-normal.woff2") format("woff2"); }
+@font-face { font-family: "Silkscreen"; font-weight: 700; font-display: swap; src: url("fonts/silkscreen-latin-700-normal.woff2") format("woff2"); }
+@font-face { font-family: "Pixelify Sans"; font-weight: 400; font-display: swap; src: url("fonts/pixelify-sans-latin-400-normal.woff2") format("woff2"); }
+@font-face { font-family: "Pixelify Sans"; font-weight: 700; font-display: swap; src: url("fonts/pixelify-sans-latin-700-normal.woff2") format("woff2"); }
+@font-face { font-family: "Nunito"; font-weight: 400; font-display: swap; src: url("fonts/nunito-latin-400-normal.woff2") format("woff2"); }
+@font-face { font-family: "Nunito"; font-weight: 700; font-display: swap; src: url("fonts/nunito-latin-700-normal.woff2") format("woff2"); }
+@font-face { font-family: "Nunito"; font-weight: 800; font-display: swap; src: url("fonts/nunito-latin-800-normal.woff2") format("woff2"); }
+
+/* ---------- Colors: light mode (day) ---------- */
+:root {
+  --backdrop: #86a97c;        /* behind the window */
+  --backdrop-2: #7c9f73;
+  --outline: #4a2c17;         /* dark pixel outline */
+  --wood: #b57a45;            /* window frame */
+  --wood-light: #d6a064;
+  --wood-dark: #8a5630;
+  --paper: #f6e8c3;           /* panels */
+  --slot: #ead6a6;            /* inventory slots */
+  --slot-edge: #c7a468;
+  --ink: #40291a;             /* main text */
+  --ink-soft: #7a5a3c;        /* secondary text */
+  --teal: #2a968e;            /* title tabs */
+  --teal-dark: #17605d;
+  --teal-text: #1c7a74;       /* teal used as text on paper */
+  --on-teal: #fff4d2;
+  --green: #6cbb34;           /* main button */
+  --green-light: #9bdc5c;
+  --green-dark: #3a7a1c;
+  --on-green: #173a08;
+  --accent: #c8421a;          /* stressed syllable */
+  --gold: #e0a21a;            /* favorite star */
+  --danger: #b33a2b;
+
+  --font-label: "Silkscreen", "Courier New", monospace;
+  --font-pixel: "Pixelify Sans", "Trebuchet MS", sans-serif;
+  --font-text: "Nunito", system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+
+/* ---------- Colors: dark mode (night) ---------- */
+/* Used when the device is in dark mode, unless the user chose "light". */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --backdrop: #151b29;
+    --backdrop-2: #19202f;
+    --outline: #07090f;
+    --wood: #3a4560;
+    --wood-light: #55648a;
+    --wood-dark: #262e43;
+    --paper: #212839;
+    --slot: #2c3549;
+    --slot-edge: #46526f;
+    --ink: #efe3c4;
+    --ink-soft: #a9a58f;
+    --teal: #238a83;
+    --teal-dark: #0f4a48;
+    --teal-text: #5fd0c6;
+    --on-teal: #fff4d2;
+    --green: #5aa82c;
+    --green-light: #86cf4c;
+    --green-dark: #2c5e15;
+    --on-green: #0f2a05;
+    --accent: #ffb04a;
+    --gold: #ffcc4d;
+    --danger: #ff8a75;
+  }
+}
+/* Used when the user chose "dark" in Settings. */
+:root[data-theme="dark"] {
+  --backdrop: #151b29;
+  --backdrop-2: #19202f;
+  --outline: #07090f;
+  --wood: #3a4560;
+  --wood-light: #55648a;
+  --wood-dark: #262e43;
+  --paper: #212839;
+  --slot: #2c3549;
+  --slot-edge: #46526f;
+  --ink: #efe3c4;
+  --ink-soft: #a9a58f;
+  --teal: #238a83;
+  --teal-dark: #0f4a48;
+  --teal-text: #5fd0c6;
+  --on-teal: #fff4d2;
+  --green: #5aa82c;
+  --green-light: #86cf4c;
+  --green-dark: #2c5e15;
+  --on-green: #0f2a05;
+  --accent: #ffb04a;
+  --gold: #ffcc4d;
+  --danger: #ff8a75;
+}
+
+/* ---------- Base ---------- */
+* { box-sizing: border-box; }
+
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: 0;
+  color: var(--ink);
+  font-family: var(--font-text);
+  font-size: 17px;
+  line-height: 1.5;
+  /* a soft checker pattern, like game grass */
+  background-color: var(--backdrop);
+  background-image:
+    linear-gradient(45deg, var(--backdrop-2) 25%, transparent 25%, transparent 75%, var(--backdrop-2) 75%),
+    linear-gradient(45deg, var(--backdrop-2) 25%, transparent 25%, transparent 75%, var(--backdrop-2) 75%);
+  background-size: 32px 32px;
+  background-position: 0 0, 16px 16px;
+}
+
+a { color: inherit; text-decoration: none; }
+p { margin: 0; }
+h1, h2, h3 { margin: 0; font-weight: 700; }
+ul, ol { margin: 0; padding: 0; list-style: none; }
+button, input { font: inherit; color: inherit; }
+button { cursor: pointer; }
+
+/* Keyboard focus: a clear ring */
+:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+
+.icon { display: block; }
+
+/* Pixel corners: cuts a small square from each corner of a box. */
+.px, .slot, .chip, .btn, .icon-btn, .text-input, .title-tab, .tag, .card, .screen {
+  --n: 4px;
+  clip-path: polygon(
+    0 var(--n), var(--n) var(--n), var(--n) 0,
+    calc(100% - var(--n)) 0, calc(100% - var(--n)) var(--n), 100% var(--n),
+    100% calc(100% - var(--n)), calc(100% - var(--n)) calc(100% - var(--n)), calc(100% - var(--n)) 100%,
+    var(--n) 100%, var(--n) calc(100% - var(--n)), 0 calc(100% - var(--n))
+  );
+}
+
+/* ---------- The window (wood frame) ---------- */
+.app {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  min-height: 100dvh;
+  background: var(--wood);
+  /* light edge on top and left, dark edge on bottom and right */
+  box-shadow: inset 4px 4px 0 var(--wood-light), inset -4px -4px 0 var(--wood-dark);
+}
+
+.topbar {
+  display: flex;
+  justify-content: center;
+  padding: 14px 12px 0;
+}
+
+/* The teal tab with the app name (like "CRAFT" in a game menu) */
+.title-tab {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 18px 10px;
+  background: var(--teal);
+  color: var(--on-teal);
+  border: 4px solid var(--outline);
+  border-bottom: none;
+  box-shadow: inset 0 4px 0 rgba(255, 255, 255, 0.25);
+  font-family: var(--font-label);
+  font-weight: 700;
+  font-size: 18px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+/* The parchment panel that holds the current screen */
+.screen {
+  flex: 1;
+  margin: 0 10px 10px;
+  padding: 18px 14px 24px;
+  background: var(--paper);
+  border: 4px solid var(--outline);
+  min-width: 0;
+}
+
+/* ---------- Tabs (bottom bar on phones) ---------- */
+.tabs {
+  order: 3;                  /* after the screen */
+  position: sticky;
+  bottom: 0;
+  z-index: 5;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+  padding: 8px 10px calc(8px + env(safe-area-inset-bottom));
+  background: var(--wood);
+  border-top: 4px solid var(--outline);
+  box-shadow: inset 0 4px 0 var(--wood-light);
+}
+
+.tab {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  padding: 8px 4px 6px;
+  min-height: 52px;
+  border: 3px solid transparent;
+  color: var(--on-teal);
+  font-family: var(--font-label);
+  font-size: 11px;
+  text-transform: uppercase;
+}
+
+/* The tab of the current screen looks like a selected slot */
+.tab.active {
+  background: var(--paper);
+  border-color: var(--outline);
+  color: var(--teal-text);
+}
+
+/* ---------- Text styles ---------- */
+/* Section title: teal pixel text with a dotted line */
+.section-title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 26px 0 12px;
+  color: var(--teal-text);
+  font-family: var(--font-label);
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+.section-title::after {
+  content: "";
+  flex: 1;
+  height: 4px;
+  background: repeating-linear-gradient(90deg, var(--slot-edge) 0 4px, transparent 4px 8px);
+}
+.section-title:first-child { margin-top: 0; }
+
+/* Space between the blocks of a screen (they become columns on big screens) */
+.columns > div + div { margin-top: 26px; }
+
+.note {
+  margin-top: 12px;
+  color: var(--ink-soft);
+  font-size: 14px;
+}
+.note a, .text-link {
+  color: var(--teal-text);
+  font-weight: 700;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.loading {
+  padding: 24px 0;
+  color: var(--ink-soft);
+  font-family: var(--font-pixel);
+  font-size: 18px;
+  text-align: center;
+}
+
+.empty {
+  padding: 22px 16px;
+  color: var(--ink-soft);
+  text-align: center;
+}
+
+/* ---------- Slots, chips, buttons ---------- */
+.slot {
+  background: var(--slot);
+  border: 3px solid var(--slot-edge);
+}
+
+/* A word you can tap (similar words, recent searches) */
+.chip-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.chip {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 6px 14px;
+  background: var(--slot);
+  border: 3px solid var(--slot-edge);
+  font-family: var(--font-pixel);
+  font-size: 18px;
+}
+.chip:hover { border-color: var(--teal); }
+.chip:active { transform: translateY(2px); }
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 48px;
+  padding: 8px 18px;
+  border: 4px solid var(--outline);
+  font-family: var(--font-label);
+  font-weight: 700;
+  font-size: 14px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+.btn:active { transform: translateY(2px); }
+
+/* The main action (like "CREATE") */
+.btn-green {
+  background: var(--green);
+  color: var(--on-green);
+  box-shadow: inset 0 4px 0 var(--green-light), inset 0 -4px 0 var(--green-dark);
+}
+.btn-plain {
+  background: var(--slot);
+  color: var(--ink);
+  box-shadow: inset 0 -4px 0 var(--slot-edge);
+}
+.btn-plain.selected {
+  background: var(--teal);
+  color: var(--on-teal);
+  box-shadow: inset 0 4px 0 rgba(255, 255, 255, 0.25);
+}
+
+/* Square button with only an icon */
+.icon-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  flex: none;
+  background: var(--slot);
+  border: 3px solid var(--slot-edge);
+  color: var(--ink-soft);
+}
+.icon-btn:hover { border-color: var(--teal); }
+.icon-btn:active { transform: translateY(2px); }
+.icon-btn.is-favorite { color: var(--gold); border-color: var(--gold); }
+
+.text-input {
+  width: 100%;
+  min-height: 48px;
+  padding: 8px 12px;
+  background: var(--slot);
+  border: 3px solid var(--slot-edge);
+  box-shadow: inset 0 4px 0 rgba(0, 0, 0, 0.08);
+  font-size: 18px;
+}
+.text-input::placeholder { color: var(--ink-soft); opacity: 0.8; }
+.text-input:focus { outline: none; border-color: var(--teal); }
+
+/* Small label for the part of speech */
+.tag {
+  --n: 2px;
+  display: inline-block;
+  padding: 2px 8px 3px;
+  background: var(--teal);
+  color: var(--on-teal);
+  font-family: var(--font-label);
+  font-size: 11px;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+/* ---------- Home ---------- */
+.search-form {
+  display: flex;
+  gap: 8px;
+}
+.search-form .text-input { flex: 1; min-width: 0; }
+
+.suggestions {
+  margin-top: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.suggestion {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 44px;
+  padding: 6px 12px;
+  background: var(--slot);
+  border-left: 4px solid var(--teal);
+  font-family: var(--font-pixel);
+  font-size: 18px;
+  color: var(--ink);
+}
+.suggestion:hover { background: var(--slot-edge); }
+.suggestion .icon { color: var(--ink-soft); }
+
+/* Counters under the search bar */
+.stats {
+  display: flex;
+  gap: 18px;
+  margin-top: 12px;
+  color: var(--ink-soft);
+  font-family: var(--font-label);
+  font-size: 12px;
+  text-transform: uppercase;
+}
+.stat { display: inline-flex; align-items: center; gap: 6px; }
+.stat .icon { color: var(--teal-text); }
+.stat-star .icon { color: var(--gold); }
+
+/* Card with a teal header (word of the day) */
+.card {
+  display: block;
+  border: 4px solid var(--outline);
+  background: var(--slot);
+}
+.card-head {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 8px 12px;
+  background: var(--teal);
+  color: var(--on-teal);
+  border-bottom: 4px solid var(--outline);
+  box-shadow: inset 0 4px 0 rgba(255, 255, 255, 0.25);
+  font-family: var(--font-label);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+.card-head span:last-child { font-weight: 400; }
+.card-body { padding: 14px 14px 16px; }
+.card-word {
+  font-family: var(--font-pixel);
+  font-size: 32px;
+  font-weight: 700;
+  line-height: 1.1;
+}
+.card-meaning { margin-top: 10px; }
+.card-open {
+  margin-top: 12px;
+  color: var(--teal-text);
+  font-family: var(--font-label);
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.row-between {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.link-btn {
+  padding: 8px 4px;
+  background: none;
+  border: none;
+  color: var(--teal-text);
+  font-family: var(--font-label);
+  font-size: 12px;
+  text-transform: uppercase;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+/* ---------- Word page ---------- */
+.word-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 14px;
+}
+
+.word-title {
+  font-family: var(--font-pixel);
+  font-size: clamp(36px, 11vw, 56px);
+  line-height: 1.05;
+  overflow-wrap: anywhere;
+}
+
+.tag-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 10px;
+}
+
+/* Pronunciation box */
+.pron-box {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 4px 12px;
+  margin-top: 14px;
+  padding: 10px 14px 12px;
+}
+.pron-label {
+  color: var(--ink-soft);
+  font-family: var(--font-label);
+  font-size: 11px;
+  text-transform: uppercase;
+}
+/* Pronunciation text. Capital letters matter here, so no uppercase font. */
+.pron {
+  font-family: var(--font-pixel);
+  font-size: 24px;
+  letter-spacing: 0.5px;
+  overflow-wrap: anywhere;
+}
+.pron .stress {
+  color: var(--accent);
+  font-weight: 700;
+}
+.pron-small { font-size: 18px; }
+
+/* Info line: "running is a form of run" */
+.banner {
+  margin-top: 14px;
+  padding: 10px 12px;
+  background: var(--slot);
+  border-left: 4px solid var(--teal);
+  font-size: 15px;
+}
+
+.meaning-list { display: flex; flex-direction: column; gap: 12px; }
+.meaning { display: flex; flex-direction: column; align-items: flex-start; gap: 4px; }
+.meaning-text { font-size: 18px; }
+
+/* The 4 numbered examples */
+.example-list { display: flex; flex-direction: column; gap: 10px; }
+.example {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  padding: 10px 12px;
+  background: var(--slot);
+  border-left: 4px solid var(--slot-edge);
+}
+.example-number {
+  flex: none;
+  width: 26px;
+  height: 26px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--teal);
+  color: var(--on-teal);
+  font-family: var(--font-label);
+  font-size: 13px;
+  font-weight: 700;
+}
+
+/* ---------- Favorites ---------- */
+.fav-list { display: flex; flex-direction: column; gap: 8px; }
+.fav-row { display: flex; gap: 8px; align-items: stretch; }
+.fav-link {
+  flex: 1;
+  min-width: 0;
+  padding: 10px 12px;
+}
+.fav-link:hover { border-color: var(--teal); }
+.fav-word { font-family: var(--font-pixel); font-size: 22px; font-weight: 700; }
+.fav-meaning {
+  color: var(--ink-soft);
+  font-size: 15px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.fav-row .icon-btn { height: auto; min-height: 48px; }
+.fav-row .icon-btn:hover { color: var(--danger); border-color: var(--danger); }
+
+/* ---------- Settings ---------- */
+.field-label {
+  display: block;
+  margin-bottom: 6px;
+  font-weight: 700;
+}
+.button-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 10px;
+}
+.status { margin-top: 10px; font-weight: 700; color: var(--teal-text); }
+.settings-text { color: var(--ink-soft); font-size: 15px; }
+.settings-text + .settings-text { margin-top: 8px; }
+
+/* ---------- Bigger screens (tablet, laptop) ---------- */
+@media (min-width: 860px) {
+  body { padding: 28px 20px; }
+
+  .app {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    grid-template-areas: "topbar tabs" "screen screen";
+    max-width: 1000px;
+    min-height: 0;
+    margin: 0 auto;
+    padding: 6px;
+    border: 4px solid var(--outline);
+    box-shadow: inset 4px 4px 0 var(--wood-light), inset -4px -4px 0 var(--wood-dark), 0 8px 0 rgba(0, 0, 0, 0.25);
+  }
+
+  .topbar { grid-area: topbar; justify-content: flex-start; padding: 10px 14px 0; }
+
+  /* The tabs move to the top right */
+  .tabs {
+    grid-area: tabs;
+    position: static;
+    align-self: end;
+    display: flex;
+    padding: 8px 12px 6px;
+    border-top: none;
+    box-shadow: none;
+    background: none;
+  }
+  .tab { flex-direction: row; gap: 8px; min-height: 44px; padding: 6px 12px; font-size: 12px; }
+
+  .screen { grid-area: screen; padding: 28px 30px 34px; min-height: 560px; }
+
+  /* Two columns */
+  .columns {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0 36px;
+    align-items: start;
+  }
+  .columns > div + div { margin-top: 0; }
+  .word-head { grid-column: 1 / -1; margin-bottom: 26px; }
+  .narrow { max-width: 640px; }
+}
+
+/* People who prefer less motion: no press animation */
+@media (prefers-reduced-motion: reduce) {
+  * { transition: none !important; }
+  .chip:active, .btn:active, .icon-btn:active { transform: none; }
+}

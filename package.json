@@ -1,0 +1,23 @@
+{
+  "name": "wordsmith-dictionary",
+  "version": "1.0.0",
+  "description": "A simple offline English dictionary PWA for learners",
+  "scripts": {
+    "build:wordlist": "python3 build/1_wordlist.py",
+    "build:data": "node build/2_build_data.js",
+    "build": "npm run build:wordlist && npm run build:data",
+    "test:pronounce": "node build/test_pronounce.js",
+    "icons": "node build/make_icons.js",
+    "start": "node build/serve.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@fontsource/nunito": "^5.3.0",
+    "@fontsource/pixelify-sans": "^5.3.0",
+    "@fontsource/silkscreen": "^5.3.0",
+    "cmu-pronouncing-dictionary": "^3.0.0",
+    "wordnet-db": "^3.1.14"
+  }
+}
